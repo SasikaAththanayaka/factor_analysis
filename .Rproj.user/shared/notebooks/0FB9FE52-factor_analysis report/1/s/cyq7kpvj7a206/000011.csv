@@ -1,0 +1,9 @@
+"0","Body_measurement <- read_csv(file=""Data/Body_measurement.csv"")"
+"2","[1mRows: [22m[34m716[39m [1mColumns: [22m[34m13[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[32mdbl[39m (13): Gender, Age, HeadCircumference, ShoulderWidth, ChestWidth, Belly, Waist, Hips, ArmLength, ShoulderToW..."
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","head(Body_measurement)"

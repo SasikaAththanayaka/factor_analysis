@@ -1,0 +1,183 @@
+---
+title: "Factor Analysis Report for Body Measurements Dataset"
+author: "S/17/314"
+date: "2023-05-27"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# 1. Introduction
+
+  The Body Measurements Dataset is a comprehensive collection of anthropometric measurements captured from a diverse sample of individuals. Anthropometry refers to the measurement of human body dimensions and proportions, and it plays a crucial role in various fields such as health sciences, ergonomics, clothing design, and nutrition research. 
+  
+Test the hypothesis that the selected factors are sufficient.
+  
+The objectives of factor analysis are to reduce data dimensionality, identify latent variables, summarize information, explore relationships among variables,
+  
+
+# Methodology
+
+## variable Information 
+Gender (Male and Female (M=1 & F= 2) (391 Males & 324 Females)
+Age (1 year and above)
+HeadCircumference (in inches)
+ShoulderWidth (in inches)
+ChestWidth (in inches)
+Belly (in inches)
+Waist (in inches)
+Hips (in inches)
+ArmLength (in inches)
+ShoulderToWaist (in inches)
+WaistToKnee (in inches)
+LegLength (in inches)
+TotalHeight - from head to toe (in inches)
+
+Factor analysis is a statistical approach used to identify the underlying factors or dimensions that explain the relationships between a group of observable data. It seeks to simplify the data by lowering its dimensionality and detecting common patterns among the variables.
+
+
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(data.table)
+library(factoextra)
+library(psych)
+library(corrplot)
+library(ggplot2)
+```
+
+```{r}
+Body_measurement <- read_csv(file="Data/Body_measurement.csv")
+head(Body_measurement)
+```
+remove empty rows and columns
+
+```{r}
+Body_measurement <- Body_measurement %>% remove_empty(c("cols"))
+Body_measurement <- Body_measurement %>% drop_na()
+```
+
+
+```{r}
+head(Body_measurement)
+```
+
+```{r}
+describe(Body_measurement)
+```
+mean of each variable
+```{r}
+apply(Body_measurement, 2, mean)
+```
+
+variance of each variable
+
+```{r}
+apply(Body_measurement, 2, var)
+```
+Correlation Matrix for the data
+
+```{r}
+cor(Body_measurement, method = "spearman")
+
+```
+
+```{r}
+scaled_df <- apply(Body_measurement, 2, scale)
+head(scaled_df)
+```
+
+The test measures sampling adequacy for each variable in the model 
+
+```{r}
+KMO(scaled_df)
+```
+
+Dimention of the dataset
+```{r}
+dim(scaled_df)
+```
+
+Get the covariance matrix of standardized data
+```{r}
+df_cov <-cov(scaled_df)
+df_cov
+```
+
+
+Find the eigen value and eigen vectors of covariance matrix
+```{r}
+df_eigen <- eigen(df_cov)
+df_eigen
+```
+
+proportion of variance 
+
+```{r}
+PVE <- df_eigen$values / sum(df_eigen$values)
+PVE
+```
+Scree Plot
+
+
+```{r}
+# Create scree plot
+plot(PVE, type = "b", xlab = "Factor", ylab = "Proportion of Variance Explained", main = "Scree Plot")
+
+```
+
+
+`
+
+Factor Analysis from Principal component Method
+```{r}
+df_st_fa_pc <- fa(df_cov ,nfactors = 3,rotate = "none",n.obs = 252 ,covar = TRUE,fm = "pa")
+df_st_fa_pc
+```
+
+Get unrotated loadings from PC method
+```{r}
+df_st_fa_pc$loadings
+```
+
+
+Get unrotated PC loadings as dataframe
+```{r}
+unrotated_pc_loadings <- as.data.frame(unclass(df_st_fa_pc$loadings))
+unrotated_pc_loadings
+```
+
+Get unrotated PC method communalities as dataframe
+```{r}
+unrotated_pc_com <- as.data.frame(unclass(df_st_fa_pc$communality))
+unrotated_pc_com
+```
+
+Rotate the PC method factor loadings using 'Varimax' method
+```{r}
+library(GPArotation)
+df_st_fa_pc_rotate <- fa(df_cov ,nfactors = 3,rotate = "varimax",n.obs = 252 ,covar = TRUE,fm = 'pa')
+df_st_fa_pc_rotate
+```
+```{r}
+df_st_fa_pc_rotate$loadings
+```
+
+
+Roatate factor loadings as a dataframe from PC method
+```{r}
+rotated_pc_loadings <- as.data.frame(unclass(df_st_fa_pc_rotate$loadings))
+rotated_pc_loadings
+```
+Get rotated communalities in PC method
+```{r}
+rotated_pc_com <- as.data.frame(unclass(df_st_fa_pc_rotate$communality))
+rotated_pc_com
+```

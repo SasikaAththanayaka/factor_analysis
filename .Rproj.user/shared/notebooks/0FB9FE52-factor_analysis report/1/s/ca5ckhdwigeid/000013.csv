@@ -1,0 +1,14 @@
+"0","library(GPArotation)"
+"0","df_st_fa_pc_rotate <- fa(df_cov ,nfactors = 3,rotate = ""varimax"",n.obs = 252 ,covar = TRUE,fm = 'pa')"
+"0","df_st_fa_pc_rotate"
+"1","Factor Analysis using method = "
+"1"," "
+"1","pa"
+"1","
+Call: "
+"1","fa(r = df_cov, nfactors = 3, n.obs = 252, rotate = ""varimax"", 
+"
+"1","    covar = TRUE, fm = ""pa"")
+"
+"1","Standardized loadings (pattern matrix) based upon correlation matrix
+"

@@ -1,0 +1,3 @@
+"0","# Create scree plot"
+"0","plot(PVE, type = ""b"", xlab = ""Factor"", ylab = ""Proportion of Variance Explained"", main = ""Scree Plot"")"
+"0",""

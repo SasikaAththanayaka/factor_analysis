@@ -1,0 +1,2 @@
+"0","unrotated_pc_com <- as.data.frame(unclass(df_st_fa_pc$communality))"
+"0","unrotated_pc_com"

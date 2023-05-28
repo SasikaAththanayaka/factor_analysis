@@ -1,0 +1,13 @@
+"0","df_st_fa_pc <- fa(df_cov ,nfactors = 3,rotate = ""none"",n.obs = 252 ,covar = TRUE,fm = ""pa"")"
+"0","df_st_fa_pc"
+"1","Factor Analysis using method = "
+"1"," "
+"1","pa"
+"1","
+Call: "
+"1","fa(r = df_cov, nfactors = 3, n.obs = 252, rotate = ""none"", covar = TRUE, 
+"
+"1","    fm = ""pa"")
+"
+"1","Standardized loadings (pattern matrix) based upon correlation matrix
+"
